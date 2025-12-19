@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.utils.text import slugify
-from .forms import VendorRegistrationForm
+from django.core.exceptions import ObjectDoesNotExist
+from .forms import VendorRegistrationForm, VendorStoreForm
 from .models import VendorProfile
 from store.forms import ProductForm
 from store.models import Product
@@ -21,7 +22,11 @@ def vendor_register(request):
 
 @login_required
 def vendor_dashboard(request):
-    vendor = request.user.vendor_profile
+    try:
+        vendor = request.user.vendor_profile
+    except ObjectDoesNotExist:
+        return redirect('create_store')
+
     products = vendor.products.all()
     # Get all order items belonging to this vendor
     order_items = vendor.order_items.all().order_by('-order__created_at')
@@ -35,6 +40,38 @@ def vendor_dashboard(request):
         'order_items': order_items,
         'earnings': earnings
     })
+
+@login_required
+def create_store(request):
+    # Check if already has profile
+    try:
+        if request.user.vendor_profile:
+            return redirect('vendor_dashboard')
+    except ObjectDoesNotExist:
+        pass
+
+    if request.method == 'POST':
+        form = VendorStoreForm(request.POST)
+        if form.is_valid():
+            vendor = form.save(commit=False)
+            vendor.user = request.user
+            vendor.slug = slugify(vendor.store_name, allow_unicode=True)
+            
+            # Ensure unique slug
+            if VendorProfile.objects.filter(slug=vendor.slug).exists():
+                vendor.slug = f"{vendor.slug}-{request.user.id}"
+                
+            vendor.save()
+            
+            # Update user role to VENDOR
+            request.user.role = 'VENDOR'
+            request.user.save()
+            
+            return redirect('vendor_dashboard')
+    else:
+        form = VendorStoreForm()
+    
+    return render(request, 'vendors/create_store.html', {'form': form})
 
 @login_required
 def add_product(request):

@@ -49,3 +49,8 @@ class VendorRegistrationForm(forms.ModelForm):
         if commit:
             vendor.save()
         return vendor
+
+class VendorStoreForm(forms.ModelForm):
+    class Meta:
+        model = VendorProfile
+        fields = ['store_name', 'description']

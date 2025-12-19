@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Open Store{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <div class="card-funny" style="background: var(--secondary);">
+        <h1 style="text-align: center; margin-bottom: 2rem;">OPEN YOUR SHOP 🏪</h1>
+        <p style="text-align: center;">You are already logged in as <strong>{{ user.username }}</strong>.</p>
+        <p style="text-align: center;">Just name your store and start selling.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div style="margin-bottom: 1rem;">
+                <label style="font-weight: bold;">Store Name</label>
+                {{ form.store_name }}
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label style="font-weight: bold;">Description</label>
+                {{ form.description }}
+            </div>
+
+            <button type="submit" class="btn-funny wiggle-on-hover" style="width: 100%; font-size: 1.5rem;">
+                LAUNCH 🚀
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
