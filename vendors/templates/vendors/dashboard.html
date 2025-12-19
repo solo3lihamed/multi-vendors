@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1>{{ vendor.store_name }} DASHBOARD</h1>
+        <a href="{% url 'add_product' %}" class="btn-funny">ADD ITEM +</a>
+    </div>
+
+    <div class="card-funny" style="background: var(--secondary);">
+        <h2>STATS 📈</h2>
+        <div style="display: flex; gap: 2rem;">
+            <div>
+                <strong>Earnings:</strong> ${{ earnings }}
+            </div>
+            <div>
+                <strong>Sales:</strong> {{ order_items|length }}
+            </div>
+            <div>
+                <strong>Status:</strong> {% if vendor.is_subscribed %} PRO MEMBER 🌟 {% else %} FREE TIER 💩 {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <h2>YOUR JUNK (Products)</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+        {% for product in products %}
+        <div class="card-funny" style="padding: 1rem;">
+            <h4>{{ product.title }}</h4>
+            <p>${{ product.price }}</p>
+            <small>Stock: {{ product.stock }}</small>
+            <br>
+            <a href="{% url 'edit_product' product.id %}"
+                style="display: inline-block; margin-top: 1rem; font-weight: bold; color: blue;">✎ EDIT</a>
+        </div>
+        {% empty %}
+        <p>You have nothing. Add product!</p>
+        {% endfor %}
+    </div>
+
+    <h2>RECENT ORDERS 📦</h2>
+    <div class="card-funny" style="background: white;">
+        {% if order_items %}
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid black;">
+                    <th style="text-align: left; padding: 0.5rem;">Order ID</th>
+                    <th style="text-align: left; padding: 0.5rem;">Product</th>
+                    <th style="text-align: left; padding: 0.5rem;">Total</th>
+                    <th style="text-align: left; padding: 0.5rem;">Buyer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order_items %}
+                <tr>
+                    <td style="padding: 0.5rem;">#{{ item.order.id }}</td>
+                    <td style="padding: 0.5rem;">{{ item.product.title }} (x{{ item.quantity }})</td>
+                    <td style="padding: 0.5rem;">${{ item.get_total_price }}</td>
+                    <td style="padding: 0.5rem;">{{ item.order.first_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No sales yet. Try harder.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

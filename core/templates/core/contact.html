@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px;">
+    <h1 style="text-align: center;">YELL AT US 🗣️</h1>
+
+    <div class="card-funny">
+        <form>
+            <div style="margin-bottom: 1rem;">
+                <label>Name</label>
+                <input type="text" placeholder="Who are you?">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label>Email</label>
+                <input type="email" placeholder="email@example.com">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label>Message</label>
+                <textarea rows="5" placeholder="What did we do wrong?"></textarea>
+            </div>
+            <button type="button" class="btn-funny"
+                onclick="alert('Message sent to the void! (Not really)')">SEND</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

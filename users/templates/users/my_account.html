@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>WELCOME, {{ user.username|upper }} 👋</h1>
+
+    <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+        <div style="flex: 1;">
+            <div class="card-funny" style="background: var(--accent);">
+                <h2>YOUR ORDERS</h2>
+                {% if orders %}
+                <ul style="list-style: none; padding: 0;">
+                    {% for order in orders %}
+                    <li style="background: white; padding: 1rem; margin-bottom: 1rem; border: var(--border);">
+                        <strong>Order #{{ order.id }}</strong><br>
+                        Date: {{ order.created_at|date:"M d, Y" }}<br>
+                        Total: ${{ order.paid_amount }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>You haven't bought anything. Why?</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="flex: 1;">
+            <div class="card-funny">
+                <h2>SETTINGS</h2>
+                <p>Email: {{ user.email }}</p>
+                <p>Role: {{ user.role }}</p>
+                <hr style="border: 2px solid black;">
+                {% if user.role == "VENDOR" %}
+                <a href="{% url 'vendor_dashboard' %}" class="btn-funny"
+                    style="width: 100%; display:block; text-align: center;">GO TO VENDOR DASHBOARD</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

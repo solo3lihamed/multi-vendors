@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <div class="card-funny">
+        <h1>GIVE US DETAILS 📝</h1>
+        <p>Total Amount: <strong>${{ total_price }}</strong></p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div style="background: black; color: white; padding: 1rem;">{{ form.errors }}</div>
+            {% endif %}
+
+            <div style="margin-bottom: 1rem;">
+                <label>First Name</label>
+                {{ form.first_name }}
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label>Last Name</label>
+                {{ form.last_name }}
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label>Email</label>
+                {{ form.email }}
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label>Address</label>
+                {{ form.address }}
+            </div>
+
+            <button type="submit" class="btn-funny wiggle-on-hover" style="width: 100%; font-size: 1.5rem;">CONFIRM
+                ORDER</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,126 @@
+:root {
+    --bg-color: #f6f0e7; /* Off-white/cream */
+    --text-color: #1a1a1a;
+    --primary: #ff90e8; /* Pink */
+    --secondary: #ffc900; /* Yellow */
+    --accent: #23a0ff; /* Blue */
+    --border: 3px solid #000000;
+    --shadow: 5px 5px 0px 0px #000000;
+    --border-radius: 0px; /* Brutalism typically sharp, or slightly rounded */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Space Mono', monospace; 
+    margin: 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+/* Utilities */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Funny Components */
+.btn-funny {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: black;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    transition: all 0.1s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+.btn-funny:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px 0px #000000;
+    background-color: var(--primary);
+}
+
+.btn-funny:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px #000000;
+}
+
+.card-funny {
+    background-color: white;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.navbar-funny {
+    background-color: white;
+    border-bottom: var(--border);
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid transparent;
+    padding: 0.5rem;
+}
+
+.nav-links a:hover {
+    background-color: var(--accent);
+    border: 2px solid black;
+    box-shadow: 3px 3px 0 0 black;
+}
+
+/* Witty animations */
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.wiggle-on-hover:hover {
+    animation: wiggle 0.5s ease;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 1rem;
+    border: var(--border);
+    box-shadow: 3px 3px 0 0 black;
+    margin-bottom: 1rem;
+    font-family: inherit;
+    background: white;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    background-color: var(--secondary);
+}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card-funny" style="display: flex; gap: 2rem; align-items: flex-start;">
+        <div style="flex: 1;">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                style="width: 100%; border: var(--border); box-shadow: var(--shadow);">
+            {% else %}
+            <div
+                style="width: 100%; height: 400px; background: var(--accent); border: var(--border); display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                📦
+            </div>
+            {% endif %}
+        </div>
+
+        <div style="flex: 1;">
+            <small style="background: black; color: white; padding: 0.2rem 0.5rem;">{{
+                product.category.name|default:"Uncategorized" }}</small>
+            <h1 style="font-size: 3rem; margin-top: 0.5rem;">{{ product.title }}</h1>
+            <h2 style="color: var(--primary); font-size: 2.5rem;">${{ product.price }}</h2>
+            <p>{{ product.description }}</p>
+
+            <hr style="border: 2px solid black; margin: 2rem 0;">
+
+            <p><strong>Seller:</strong> <a href="{% url 'vendor_store' product.vendor.slug %}">{{
+                    product.vendor.store_name }}</a></p>
+
+            <a href="{% url 'add_to_cart' product.id %}" class="btn-funny wiggle-on-hover"
+                style="width: 100%; text-align: center; font-size: 1.5rem;">
+                ADD TO CART
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

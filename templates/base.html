@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperFunny SAAS | {% block title %}Home{% endblock %}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar-funny">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" style="text-decoration: none; color: black; font-size: 1.5rem; font-family: 'Archivo Black';">
+                SUPER SAAS 🚀
+            </a>
+
+            <form action="{% url 'search' %}" method="get" style="display: flex; gap: 0.5rem; margin: 0 2rem; flex: 1;">
+                <input type="text" name="query" placeholder="Search for junk..."
+                    style="margin: 0; padding: 0.5rem; border: 2px solid black; box-shadow: 2px 2px 0 0 black;">
+                <button type="submit" class="btn-funny"
+                    style="padding: 0.5rem 1rem; box-shadow: 2px 2px 0 0 black;">🔍</button>
+            </form>
+
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'vendor_dashboard' %}">Vendors</a></li>
+                <li><a href="{% url 'cart_detail' %}">Cart</a></li>
+                {% if user.is_authenticated %}
+                {% if user.role == 'VENDOR' or user.vendor_profile %}
+                <li><a href="{% url 'vendor_dashboard' %}">Dashboard</a></li>
+                {% endif %}
+                <li><a href="{% url 'my_account' %}">Account</a></li>
+                <li><a href="{% url 'logout' %}" style="color: red;">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}" class="btn-funny"
+                        style="padding: 0.5rem 1rem; box-shadow: 3px 3px 0 0 black;">Login</a></li>
+                <li><a href="{% url 'vendor_register' %}" style="text-decoration: underline;">Sell?</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" style="min-height: 80vh; margin-top: 3rem;">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="card-funny" style="background-color: var(--secondary);">
+            <strong>HEY!</strong> {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer style="text-align: center; padding: 3rem; background: black; color: white;">
+        <p style="font-family: 'Archivo Black';">MADE WITH 💖 AND ☕ FOR PROFIT</p>
+        <div style="margin-top: 1rem;">
+            <a href="{% url 'about' %}" style="color: white; margin: 0 1rem;">ABOUT</a>
+            <a href="{% url 'contact' %}" style="color: white; margin: 0 1rem;">CONTACT</a>
+            <a href="{% url 'vendors_list' %}" style="color: white; margin: 0 1rem;">ALL VENDORS</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

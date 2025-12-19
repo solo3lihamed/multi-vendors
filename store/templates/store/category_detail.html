@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card-funny" style="background: var(--primary); text-align: center;">
+        <h1 style="font-size: 4rem; margin-bottom: 0;">{{ category.name }}</h1>
+        <p>{{ products|length }} items found</p>
+    </div>
+
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        {% for product in products %}
+        {% include 'core/partials/product_card.html' with product=product %}
+        {% empty %}
+        <div class="card-funny">
+            <h3>No items in this category yet.</h3>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

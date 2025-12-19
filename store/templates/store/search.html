@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Search: {{ query }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>SEARCH: "{{ query }}"</h1>
+
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        {% for product in products %}
+        {% include 'core/partials/product_card.html' with product=product %}
+        {% empty %}
+        <div class="card-funny">
+            <h3>No results found. Try searching for "Junk".</h3>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

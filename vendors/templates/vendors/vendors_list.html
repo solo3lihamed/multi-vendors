@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}All Vendors{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="text-align: center;">MEET THE MERCHANTS 🤝</h1>
+
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+        {% for vendor in vendors %}
+        <div class="card-funny" style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🏪</div>
+            <h2>{{ vendor.store_name }}</h2>
+            {% if vendor.is_subscribed %}
+            <span
+                style="background: var(--secondary); padding: 0.2rem 0.5rem; font-weight: bold; border: 1px solid black;">PRO
+                SELLER</span>
+            {% endif %}
+            <p>{{ vendor.description|truncatewords:20 }}</p>
+            <a href="{% url 'vendor_store' vendor.slug %}" class="btn-funny"
+                style="display: block; margin-top: 1rem;">VISIT STORE</a>
+        </div>
+        {% empty %}
+        <p>No vendors yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

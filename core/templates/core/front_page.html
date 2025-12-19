@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 4rem;">
+    <h1 style="font-size: 4rem; color: var(--primary); text-shadow: 4px 4px 0px black;">
+        BUY THINGS.<br>BE HAPPY.
+    </h1>
+    <p
+        style="font-size: 1.5rem; background: var(--secondary); display: inline-block; padding: 0.5rem; border: var(--border); box-shadow: var(--shadow); transform: rotate(-2deg);">
+        The weirdest multi-vendor marketplace in the world.
+    </p>
+    <br><br>
+    <a href="{% url 'vendor_register' %}" class="btn-funny wiggle-on-hover" style="font-size: 1.2rem;">Start Selling
+        Junk &rarr;</a>
+</div>
+
+<h2 style="border-bottom: 5px solid black; display: inline-block;">FRESH DROPS 🔥</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+    {% for product in products %}
+    {% include 'core/partials/product_card.html' with product=product %}
+    {% empty %}
+    <div class="card-funny" style="grid-column: 1 / -1; text-align: center; background: #ddd;">
+        <h3>Nothing here yet! 🦗</h3>
+        <p>Be the first valid vendor.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

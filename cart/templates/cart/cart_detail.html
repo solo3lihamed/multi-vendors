@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>YOUR HAUL 🛒</h1>
+
+    {% if items %}
+    <div class="card-funny" style="background: white;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid black;">
+                    <th style="text-align: left; padding: 1rem;">Product</th>
+                    <th style="text-align: left; padding: 1rem;">Qty</th>
+                    <th style="text-align: left; padding: 1rem;">Price</th>
+                    <th style="text-align: left; padding: 1rem;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td style="padding: 1rem;">{{ item.product.title }}</td>
+                    <td style="padding: 1rem;">{{ item.quantity }}</td>
+                    <td style="padding: 1rem;">${{ item.total_price }}</td>
+                    <td style="padding: 1rem;">
+                        <a href="{% url 'remove_from_cart' item.product.id %}"
+                            style="color: red; font-weight: bold;">DELETE</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 2rem; text-align: right;">
+            <h2>TOTAL: ${{ total_price }}</h2>
+            <a href="{% url 'checkout' %}" class="btn-funny wiggle-on-hover" style="background: var(--primary);">PAY NOW
+                (GIVE MONEY)</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card-funny">
+        <h2>Your cart is empty and sad. 😢</h2>
+        <a href="{% url 'front_page' %}" class="btn-funny">BUY SOMETHING</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<div class="card-funny" style="padding: 0; overflow: hidden; position: relative;">
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.title }}"
+        style="width: 100%; height: 250px; object-fit: cover; border-bottom: var(--border);">
+    {% else %}
+    <div
+        style="width: 100%; height: 250px; background-color: var(--accent); display: flex; align-items: center; justify-content: center; border-bottom: var(--border);">
+        <span style="font-size: 3rem;">📦</span>
+    </div>
+    {% endif %}
+
+    <div style="padding: 1.5rem;">
+        <h3 style="margin-top: 0;"><a href="{% url 'product_detail' product.category.slug|default:'all' product.slug %}"
+                style="text-decoration: none; color: black;">{{ product.title }}</a></h3>
+        <p style="font-weight: bold; font-size: 1.2rem;">${{ product.price }}</p>
+        <a href="{% url 'add_to_cart' product.id %}" class="btn-funny"
+            style="width: 100%; display: block; text-align: center;">Add to Cart</a>
+    </div>
+</div>

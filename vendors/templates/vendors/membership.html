@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Go Pro{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <h1>GIVE US MONEY? 🥺</h1>
+    <p>Upgrade to Pro to look cool and maybe get features later.</p>
+
+    <div class="card-funny" style="background: var(--secondary); margin-top: 2rem;">
+        <h2>PRO VENDOR TIER</h2>
+        <ul style="list-style: none; padding: 0; font-size: 1.2rem;">
+            <li>✅ Golden Badge</li>
+            <li>✅ Unlimited Junk Uploads</li>
+            <li>✅ We like you more</li>
+        </ul>
+        <h1 style="font-size: 3rem;">$99/mo</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-funny wiggle-on-hover" style="font-size: 2rem;">SHUT UP AND TAKE MY
+                MONEY</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
